@@ -2,11 +2,50 @@
 
 This repository contains simulation codes for studying the Voter model on a 2D lattice with long-range interactions. It includes tools to visualize opinion dynamics over time and observe the effects of varying the network size (N) and the proportion of long-range edges (p) on the duration of metastable states (plateaus).
 
-## 题目描述
+## Question description
 
 
-1. 阅读本周资料
+1. Read this week’s information
  
-2. 根据既有研究，尝试在$d=2$的格子网络上随机增加（或随机重连）比例为$p$的长程边，观察Voter模型的$n_a(t)$随时间的变化是否会出现一段相对平坦的区间（称为plateau)，此时系统处于亚稳态。请通过变化$N$和$p$来观察plateau长度的变化规律（亦即，亚稳态的持续时长）。另外，考虑到$d=2$的格子非常容易可视化(每个节点可以分配平面坐标)，请对随机的一次仿真（$N$建议大一些，$p$可以变化），观察不同$p$时，处于plateau时期的观点分布成什么形态（不同观点的节点有不同的颜色标记，可以不绘制边）
+2. Based on existing research, try to randomly add (or randomly reconnect) long-range edges with a proportion of $p$ on the lattice network of $d=2$, and observe whether $n_a(t)$ of the Voter model changes over time. There will be a relatively flat interval (called plateau), when the system is in a metastable state. Please observe the changing pattern of the plateau length (that is, the duration of the metastable state) by changing $N$ and $p$. In addition, considering that the grid of $d=2$ is very easy to visualize (each node can be assigned plane coordinates), please conduct a random simulation ($N$ is recommended to be larger, $p$ can be changed), and observe the different $p$ When, what shape is the distribution of viewpoints in the plateau period (nodes of different viewpoints are marked with different colors, and edges do not need to be drawn)
  
-3. （附加）保存某次仿真的每一步可视化图片，进而合成为视频，可以观察voter模型下观点的连续演化过程
+3. (Additional) Save the visual images of each step of a simulation and synthesize them into videos, so that you can observe the continuous evolution process of viewpoints under the voter model.
+
+Reference API:
+ 
+1. https://networkx.org/documentation/latest/reference/generated/networkx.generators.lattice.grid_2d_graph.html#networkx.generators.lattice.grid_2d_graph
+ 
+2. https://networkx.org/documentation/latest/reference/generated/networkx.drawing.nx_pylab.draw_networkx_nodes.html#networkx.drawing.nx_pylab.draw_networkx_nodes
+
+## Steps for Simulation and Visualization
+
+1. Set Up the Simulation Environment:
+Import necessary libraries: networkx for graph manipulation, matplotlib and networkx for visualization, and numpy for numerical operations.
+
+2. Generate the 2D Lattice:
+Use networkx.generators.lattice.grid_2d_graph to create a $d=2$ lattice of size $\sqrt{N} \times \sqrt{N}$ where $N$ is the number of nodes.
+
+3. Add Long-Range Connections:
+Iterate over all nodes and add a long-range edge with probability $p$. Ensure that the added edge does not already exist.
+
+4. Initialize Voter States:
+Assign each node a random initial state (e.g., 0 or 1 representing different opinions).
+
+5. Simulation of the Voter Model:
+Perform the Voter Model dynamics: randomly select a node, then randomly select a neighbor (including long-range connections) and adopt its state.
+Record the number of nodes in each state over time ($n_a(t)$).
+
+6. Analysis of the Plateau:
+Plot $n_a(t)$ over time to visually inspect for the presence of a plateau. Calculate the length of any observed plateau by determining the interval over which $n_a(t)$ remains relatively unchanged.
+
+7. Visualization of States on the Lattice:
+Use networkx.drawing.nx_pylab.draw_networkx_nodes to visualize the state of the lattice at different points in time, particularly during the plateau phase, with different colors representing different states.
+
+8. Adjust Parameters and Repeat:
+Vary $N$ and $p$ to observe changes in the plateau's characteristics.
+
+9. Video Creation:
+Store each frame of the simulation (each step or at intervals) and use a video creation library to stitch the frames into a video showing the evolution of states.
+
+## Realization Code
+
